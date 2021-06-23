@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19-may-2021 10:48:07 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Models.Pojo.Contendiente" table="contendiente" catalog="guerras_bd" optimistic-lock="version">
+        <id name="idContendiente" type="java.lang.Integer">
+            <column name="id_contendiente" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="guerra" class="Models.Pojo.Guerra" fetch="select">
+            <column name="id_guerra" not-null="true" />
+        </many-to-one>
+        <property name="ganador" type="int">
+            <column name="ganador" not-null="true" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="nombre" length="50" not-null="true" />
+        </property>
+        <set name="unionBandoses" table="union_bandos" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_contendiente" not-null="true" />
+            </key>
+            <one-to-many class="Models.Pojo.UnionBandos" />
+        </set>
+    </class>
+</hibernate-mapping>
